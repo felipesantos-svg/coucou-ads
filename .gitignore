@@ -1,0 +1,17 @@
+node_modules/
+target/
+dist/
+release/
+.env
+.env.*
+!.env.example
+*.log
+*.pfx
+*.p12
+*.pem
+client_secret*.json
+credentials*.json
+*.credentials.json
+.claude/
+.codex/
+.DS_Store

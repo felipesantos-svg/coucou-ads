@@ -1,0 +1,47 @@
+name: Windows installer
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: windows
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: windows/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check release version
+        shell: pwsh
+        run: |
+          $conf = (Get-Content src-tauri/tauri.conf.json | ConvertFrom-Json).version
+          $pkg = (Get-Content package.json | ConvertFrom-Json).version
+          $cargo = (Select-String -Path Cargo.toml -Pattern '^version\s*=\s*"(.+)"').Matches[0].Groups[1].Value
+          if ($pkg -ne $conf -or $cargo -ne $conf) { throw 'Package versions disagree' }
+          if ('${{ github.ref_type }}' -eq 'tag' -and '${{ github.ref_name }}' -ne "v$conf") { throw 'Tag version differs from package' }
+      - name: Model tests
+        shell: pwsh
+        run: |
+          Get-ChildItem scripts/*.test.mjs | ForEach-Object {
+            node $_.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Test failed: $_" }
+          }
+      - name: Native tests
+        run: cargo test --locked --workspace
+      - name: Build installer
+        run: npm run pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Cocou-Ads-Windows
+          path: |
+            windows/release/*-setup.exe
+            windows/release/SHA256SUMS.txt
