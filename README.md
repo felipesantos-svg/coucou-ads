@@ -1,4 +1,4 @@
-# Cocou Ads
+# Coucou Ads
 
 Assistente de desktop para gestores de tráfego, em português brasileiro. Fica no canto inferior esquerdo e reúne alertas de campanhas, compromissos e limites de uso de IA em uma janela compacta.
 
