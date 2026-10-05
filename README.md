@@ -7,7 +7,7 @@ Assistente de desktop para gestores de tráfego, em português brasileiro. Fica 
 ## Instalação no Windows
 
 1. Acesse [Releases](https://github.com/felipesantos-svg/cocou-ads/releases).
-2. Baixe `Cocou-Ads-Windows-0.2.0-setup.exe` da versão desejada.
+2. Baixe `Coucou-Ads-Windows-0.2.0-setup.exe` da versão desejada.
 3. Execute o instalador e abra **Cocou Ads** pelo menu Iniciar.
 4. Abra a engrenagem para configurar suas próprias integrações.
 
@@ -36,7 +36,7 @@ A barra minimizada mede 288 × 50 pixels lógicos, permanece visível quando oci
 Instale Git, Node.js 24 LTS, Rust estável para Windows MSVC e Visual Studio Build Tools com **Desenvolvimento para desktop com C++**, além do WebView2.
 
 ```powershell
-git clone https://github.com/felipesantos-svg/cocou-ads.git
+git clone https://github.com/felipesantos-svg/coucou-ads.git
 cd cocou-ads/windows
 npm ci
 npm run tauri dev
